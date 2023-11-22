@@ -19,18 +19,37 @@ const transactions = ref<transaction[]>([
   { id: 4, text: 'Camera', amount: 150 }
 ])
 
+// Get total
 const total = computed(() => {
   return transactions.value.reduce((acc, transaction) => {
     return acc + transaction.amount
   }, 0)
 })
+
+// get income
+const income = computed(() => {
+  return transactions.value
+    .filter((transaction) => transaction.amount > 0)
+    .reduce((acc, transaction) => {
+      return acc + transaction.amount
+    }, 0)
+})
+
+// get expanse
+const expanse = computed(() => {
+  return transactions.value
+    .filter((transaction) => transaction.amount < 0)
+    .reduce((acc, transaction) => {
+      return acc + transaction.amount
+    }, 0)
+})
 </script>
 
 <template>
-  <Header />
+  <Header></Header>
   <div class="container">
     <Balance :total="total" />
-    <IncomeExpenses />
+    <IncomeExpenses :expense="expanse" :income="income" />
     <TransactionList :transactions="transactions" />
     <AddTransaction />
   </div>
