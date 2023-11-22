@@ -43,6 +43,19 @@ const expanse = computed(() => {
       return acc + transaction.amount
     }, 0)
 })
+
+// Add transaction
+const handleTransactionSubmitted = (transactionData: { text: string; amount: number }) => {
+  transactions.value.push({
+    id: generateUniqueId(),
+    text: transactionData.text,
+    amount: transactionData.amount
+  })
+}
+
+const generateUniqueId = () => {
+  return Math.floor(Math.random() * 10000000)
+}
 </script>
 
 <template>
@@ -51,7 +64,7 @@ const expanse = computed(() => {
     <Balance :total="total" />
     <IncomeExpenses :expense="expanse" :income="income" />
     <TransactionList :transactions="transactions" />
-    <AddTransaction />
+    <AddTransaction @transaction-submitted="handleTransactionSubmitted" />
   </div>
 </template>
 
