@@ -4,6 +4,12 @@ import type { transaction } from '@/App.vue'
 defineProps<{
   transactions: transaction[]
 }>()
+
+const emit = defineEmits(['transactionDeleted'])
+
+const deleteTransaction = (id: number) => {
+  emit('transactionDeleted', id)
+}
 </script>
 
 <template>
@@ -15,7 +21,7 @@ defineProps<{
       :key="transaction.id"
     >
       {{ transaction.text }} <span>${{ transaction.amount }}</span
-      ><button class="delete-btn">x</button>
+      ><button @click="deleteTransaction(transaction.id)" class="delete-btn">x</button>
     </li>
   </ul>
 </template>
