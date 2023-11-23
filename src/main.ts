@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 import Toast from 'vue-toastification'
 
 import 'vue-toastification/dist/index.css'
@@ -6,4 +7,5 @@ import 'vue-toastification/dist/index.css'
 import './assets/style.css'
 import App from './App.vue'
 
-createApp(App).use(Toast).mount('#app')
+const pinia = createPinia()
+createApp(App).use(Toast).use(createPinia()).mount('#app')

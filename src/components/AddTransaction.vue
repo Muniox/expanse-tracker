@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useToast } from 'vue-toastification'
+import { useTransactionStore } from '../stores/transactions'
 
 const text = ref('')
 const amount = ref<null | number>()
 const toast = useToast()
-const emit = defineEmits(['transactionSubmitted'])
+const store = useTransactionStore()
+// const emit = defineEmits(['transactionSubmitted'])
 
 const onSubmit = () => {
   if (!text.value || !amount.value) {
@@ -16,7 +18,8 @@ const onSubmit = () => {
       amount: amount.value
     }
 
-    emit('transactionSubmitted', transactionData)
+    // emit('transactionSubmitted', transactionData)
+    store.handleTransactionSubmitted(transactionData)
 
     text.value = ''
     amount.value = null
